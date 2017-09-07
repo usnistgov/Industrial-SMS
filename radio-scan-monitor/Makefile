@@ -1,5 +1,5 @@
 ###
-Name := radio-scan-monitor
+Name := sdr_processor
 CXX := g++
 CXXFLAGS := -O2 -Wall
 Libs := -lSDL2 -lSDL2_ttf 

@@ -310,10 +310,10 @@ void load_scan_data()
 //	float len = num_points;
 	
 	centr_freq = f_shm[5 + num_points];
-//	int centr_pos = (centr_freq - full_sp_start_freq) / full_sp_freq_step;
-//	int fill_cp = (full_sp_min_filled_data + full_sp_max_filled_data)/2;
-//	if(centr_pos - fill_cp < 2000 && !need_update_detector) need_update_detector = 1;
-	if(!need_update_detector) need_update_detector = 1;
+	int centr_pos = (centr_freq - full_sp_start_freq) / full_sp_freq_step;
+	
+	int fill_cp = (full_sp_min_filled_data + full_sp_max_filled_data)/2;
+	if(centr_pos - fill_cp < 2000 && !need_update_detector) need_update_detector = 1;
 	
 	int min_point = num_points/4;
 	int max_point = 3*num_points/4;
@@ -629,7 +629,6 @@ void print_detected_signals()
 		int rep_len = sprintf(rep_string, "%02d:%02d:%02d : type: %s center %.1f MHz power %.0f dBm BW %.1f MHz gain %g\n", curTm->tm_hour, curTm->tm_min, curTm->tm_sec, detectors[detected_signals[s].type].name, detected_signals[s].central_frequency, detected_signals[s].power, detected_signals[s].BW, detected_signals[s].gain);
 		printf("%s", rep_string);
 		int wlen = write(report_file, rep_string, rep_len);
-		if(wlen < 0) printf("report file write error!\n");
 	}
 }
 void print_scan_frequency()
@@ -642,13 +641,13 @@ void print_scan_frequency()
 	int rep_len = sprintf(rep_string, "%02d:%02d:%02d : scanning %.1f MHz\n", curTm->tm_hour, curTm->tm_min, curTm->tm_sec, centr_freq*0.000001);
 	printf("%s", rep_string);
 	int wlen = write(report_file, rep_string, rep_len);
-	if(wlen < 0) printf("report file write error!\n");
 }
 
 
 void run_detectors()
 {
 	clear_detected_signals();
+	int has_detected = 0;
 	detector_chart->clear();
 	
 	float *sp_data = full_spectrum_proc;
