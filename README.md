@@ -70,9 +70,9 @@ Zoom window frequency range is adjusted with mouse scroll wheel. When left shift
 
 The followings are some sample screenshots during the continuous scan of the system for microwave oven and the NIST Shops experiments. Monitor and detector use the same units (dBm), but monitor shows peak amplitude (just like spectrum analyzer), while detector integrates signal over the entire bandwidth (as a result, more power) so it's only natural that numbers are different. For narrow peaks, monitor is displaying couple dB higher level than detector. For wideband, monitor is displaying much lower level than detector. For instance, it is reasonable if monitor seems like 10-20 dB less than detector during WiFi scanning. 
 
-The ISMS monitor displaying WiFi signals while microwave oven turned off:
+The ISMS monitor while microwave oven turned off:
 
-
+![microwave_off](https://user-images.githubusercontent.com/19610600/30183762-961c0492-93e9-11e7-8486-4a327dd9ba43.jpg)
 
 The ISMS monitor displaying microwave oven interfering signal at 2465 MHz along with WiFi signals:
 
