@@ -33,12 +33,11 @@
 class TopBlock : public gr::top_block
 {
 public:
-	TopBlock(double centre_freq_1, double centre_freq_2, double sample_rate,
-		 double fft_width, double bandwidth1, double bandwidth2,
-		 double step, unsigned int avg_size, double spread,
-		 double threshold, double ptime, const std::string &outcsv) :
+	TopBlock(double start_freq, double end_freq, double sample_rate,
+		 double fft_width, double step, unsigned int avg_size, 
+		double gain_a, float gain_m, float gain_if, float total_gain, int use_AGC) :
 		gr::top_block("Top Block"),
-		vector_length(sample_rate / fft_width),
+		vector_length(fft_width),
 		window(GetWindow(vector_length)),
 		source(osmosdr::source::make()), /* OsmoSDR Source */
 		stv(gr::blocks::stream_to_vector::make(sizeof(float) * 2, vector_length)), /* Stream to vector */
@@ -46,25 +45,49 @@ public:
 		fft(gr::fft::fft_vcc::make(vector_length, true, window, false, 1)),
 		ctf(gr::blocks::complex_to_mag_squared::make(vector_length)),
 		iir(gr::filter::single_pole_iir_filter_ff::make(1.0, vector_length)),
-		lg(gr::blocks::nlog10_ff::make(10, vector_length, -20 * std::log10(float(vector_length)) -10 * std::log10(float(GetWindowPower() / vector_length)))),
+		lg(gr::blocks::nlog10_ff::make(10, vector_length, -20 * std::log10(float(vector_length)) -10 * std::log10(float(GetWindowPower() / vector_length))))
 		/* Sink - this does most of the interesting work */
-		sink(make_scanner_sink(source, vector_length, centre_freq_1, centre_freq_2, sample_rate, bandwidth1, bandwidth2, step, avg_size, spread, threshold, ptime, outcsv))
 	{
 		/* Set up the OsmoSDR Source */
 		source->set_sample_rate(sample_rate);
-		source->set_center_freq(centre_freq_1);
+		source->set_center_freq(start_freq);
 		source->set_freq_corr(0.0);
-		source->set_gain_mode(false);
-		source->set_gain(10.0);
-		source->set_if_gain(20.0);
 
+		const std::vector<std::string>gains = source->get_gain_names();
+		for(std::vector<std::string>::const_iterator ii = gains.begin(); ii != gains.end(); ++ii)
+		{
+			printf("gain: %s\n", ii->c_str());
+		}
+
+		source->set_gain_mode(false);
+		if(total_gain > 0)
+			source->set_gain(total_gain);
+		else
+		{
+			source->set_gain(gain_m, "BB");
+			if(!use_AGC)
+			{
+				source->set_gain(gain_a, "RF");
+				source->set_gain(gain_if, "IF");
+			}
+			else
+			{
+				source->set_gain(0, "RF");
+				source->set_gain(0, "IF");
+			}
+		}
+
+		float resulting_gain = source->get_gain("RF") + source->get_gain("BB") + source->get_gain("IF");
+
+		sink = make_scanner_sink(source, vector_length, start_freq, end_freq, sample_rate, step, avg_size, resulting_gain, use_AGC);
 		/* Set up the connections */
 		connect(source, 0, stv, 0);
 		connect(stv, 0, fft, 0);
 		connect(fft, 0, ctf, 0);
-		connect(ctf, 0, iir, 0);
-		connect(iir, 0, lg, 0);
-		connect(lg, 0, sink, 0);
+//		connect(ctf, 0, iir, 0);
+//		connect(iir, 0, lg, 0);
+//		connect(lg, 0, sink, 0);
+		connect(ctf, 0, sink, 0);
 	}
 
 private:

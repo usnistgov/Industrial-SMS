@@ -26,16 +26,16 @@ class Arguments
 public:
 	Arguments(int argc, char **argv) :
 		avg_size(1000),
-		bandwidth1(25000.0),
-		bandwidth2(-1.0),
-		spread(50000.0),
-		threshold(3.0),
-		centre_freq_1(87000000.0),
-		centre_freq_2(108000000.0),
+		start_freq(87000000.0),
+		end_freq(108000000.0),
 		sample_rate(2000000.0),
 		fft_width(1000.0),
 		step(-1.0),
-		ptime(1.0)
+		gain_a(0.0),
+		gain_if(0.0),
+		gain_m(0.0),
+		gain_total(0.0),
+		use_AGC(1)
 	{
 		argp_parse (&argp_i, argc, argv, 0, 0, this);
 	}
@@ -45,37 +45,14 @@ public:
 		return avg_size;
 	}
 
-	double get_bandwidth1()
+	double get_start_freq()
 	{
-		return bandwidth1;
+		return start_freq;
 	}
 
-	double get_bandwidth2()
+	double get_end_freq()
 	{
-		if (bandwidth2 < 0.0)/* User did not specify a coarse band */
-			return bandwidth1 * 8.0; /* I've found this to be a good choice for the coarse band */
-		else
-			return bandwidth2; /* If the user specified a bandwidth for this, use it */
-	}
-
-	double get_spread()
-	{
-		return spread;
-	}
-
-	double get_threshold()
-	{
-		return threshold;
-	}
-
-	double get_centre_freq_1()
-	{
-		return centre_freq_1;
-	}
-
-	double get_centre_freq_2()
-	{
-		return centre_freq_2;
+		return end_freq;
 	}
 
 	double get_sample_rate()
@@ -96,15 +73,11 @@ public:
 			return step;
 	}
 
-	double get_time()
-	{
-		return ptime;
-	}
-
-	std::string get_outcsv()
-	{
-		return outcsv;
-	}
+	double get_gain_a() { return gain_a; }
+	double get_gain_m() { return gain_m; }
+	double get_gain_if() { return gain_if; }
+	double get_gain_total() { return gain_total; }
+	int get_use_AGC() { return use_AGC; }
 
 private:
 	static error_t s_parse_opt(int key, char *arg, struct argp_state *state)
@@ -120,23 +93,11 @@ private:
 		case 'a':
 			avg_size = atoi(arg);
 			break;
-		case 'f':
-			bandwidth1 = atof(arg) * 1000.0; //kHz
-			break;
-		case 'c':
-			bandwidth2 = atof(arg) * 1000.0; //kHz
-			break;
-		case 's':
-			spread = atof(arg) * 1000.0; //kHz
-			break;
-		case 't':
-			threshold = atof(arg);
-			break;
 		case 'x':
-			centre_freq_1 = atof(arg) * 1000000.0; //MHz
+			start_freq = atof(arg) * 1000000.0; //MHz
 			break;
 		case 'y':
-			centre_freq_2 = atof(arg) * 1000000.0; //MHz
+			end_freq = atof(arg) * 1000000.0; //MHz
 			break;
 		case 'r':
 			sample_rate = atof(arg) * 1000000.0; //MSamples/s
@@ -147,11 +108,20 @@ private:
 		case 'z':
 			step = atof(arg) * 1000000.0; //MHz
 			break;
-		case 'p':
-			ptime = atof(arg);
+		case 'g':
+			gain_m = atof(arg);
 			break;
-		case 'o':
-			outcsv = std::string(arg);
+		case 'i':
+			gain_if = atof(arg);
+			break;
+		case 't':
+			gain_a = atof(arg);
+			break;
+		case 'G':
+			gain_total = atof(arg);
+			break;
+		case 'A':
+			use_AGC = atoi(arg);
 			break;
 		case ARGP_KEY_ARG:
 			if (state->arg_num > 0)
@@ -169,32 +139,30 @@ private:
 	static argp argp_i;
 
 	unsigned int avg_size;
-	double bandwidth1;
-	double bandwidth2;
-	double spread;
-	double threshold;
-	double centre_freq_1;
-	double centre_freq_2;
+	double start_freq;
+	double end_freq;
 	double sample_rate;
 	double fft_width;
 	double step;
-	double ptime;
-	std::string outcsv;
+	double gain_a;
+	double gain_if;
+	double gain_m;
+	double gain_total;
+	int use_AGC;
 };
 
 argp_option Arguments::options[] = {
 	{"average", 'a', "COUNT", 0, "Average over COUNT samples (default: 1000)"},
-	{"fine-bandwidth", 'f', "FREQ", 0, "Bandwidth of the fine window in kHz (default: 25)"},
-	{"coarse-bandwidth", 'c', "FREQ", 0, "Bandwidth of the coarse window in kHz (default: fine-bandwidth * 8)"},
-	{"spread", 's', "FREQ", 0, "Minimum frequency between detected signals in kHz (default: 50)"},
-	{"threshold", 't', "POWER", 0, "Threshold for the difference between the coarse and fine filtered signals in dB (default: 3)"},
 	{"start-frequency", 'x', "FREQ", 0, "Start frequency in MHz (default: 87)"},
 	{"end-frequency", 'y', "FREQ", 0, "End frequency in MHz (default: 108)"},
 	{"sample-rate", 'r', "RATE", 0, "Samplerate in Msamples/s (default: 2)"},
 	{"fft-width", 'w', "COUNT", 0, "Width of FFT in samples (default: 1000)"},
 	{"step", 'z', "FREQ", 0, "Increment step in MHz (default: sample_rate / 4)"},
-	{"time", 'p', "TIME", 0, "Time in seconds to scan on each frequency (default: 1)"},
-	{"output-csv", 'o', "OUTCSV", 0, "Output results to CSV file (default: [none])"},
+	{"gain_main", 'g', "GAINM", 0, "main gain"},
+	{"gain_if", 'i', "GAINIF", 0, "IF gain"},
+	{"gain_ant", 't', "GAINANT", 0, "antenna gain"},
+	{"gain_total", 'G', "GAINTOTAL", 0, "total gain (overrides individual gains)"},
+	{"use_AGC", 'A', "USEAGC", 0, "use agc (0 - turn off, 1 - turn on, on by default)"},
 	{0}
 };
 
