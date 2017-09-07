@@ -98,8 +98,9 @@ The SMS runs continously, measuring the power at samples in a small frequency ra
 (How to calibrate it, with indications to what command-line options or source code variables to set)
 ## Thresholding
 (How thresholding is done to miniimze false alarms, and how it is configured)
-## Adataptive Gain Control
-(How AGC is done)
+## Adaptive Gain Control (AGC)
+First, average spectral power in current FFT window (excluding edge points) and then average of all points above average (in case if most points are noise) are calculated. If this average is too low, we increase gain for one step (8 dB) and if it too high, we decrease gain for one step (8 dB). Then, we lock gain change for the next 1000 FFT samples. The reason for us to lock it is to prevent oscillations. We turn on RF gain first (and correspondingly turn it off last) and adjust IF gain only when RF gain is turned on.
+
 
 # Limitations and Future Work
 (Here is where you would show how the SMS would figure as a node in a larger system; what other hardware could be used)
