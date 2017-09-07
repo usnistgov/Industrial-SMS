@@ -80,7 +80,7 @@ Spectrum analyzer confirming microwave oven interfering signal displayed by the 
 
 The ISMS monitor displaying cellular signal during the NIST shops experiment:
 
-
+![0831171112a](https://user-images.githubusercontent.com/19610600/30171879-1ff7ee66-93c1-11e7-893d-516bb112c189.jpg)
 
 
 
