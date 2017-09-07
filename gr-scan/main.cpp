@@ -1,5 +1,6 @@
 /*
 	gr-scan - A GNU Radio signal scanner
+	Copyright (C) 2015 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
 	Copyright (C) 2012  Nicholas Tomlinson
 	
 	This program is free software: you can redistribute it and/or modify
@@ -13,7 +14,7 @@
 	GNU General Public License for more details.
 	
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
@@ -25,19 +26,20 @@
 int main(int argc, char **argv)
 {
 	Arguments arguments(argc, argv);
-	
+
 	TopBlock top_block(
-		arguments.get_centre_freq_1(),
-		arguments.get_centre_freq_2(),
+		arguments.get_start_freq(),
+		arguments.get_end_freq(),
 		arguments.get_sample_rate(),
 		arguments.get_fft_width(),
-		arguments.get_bandwidth1(),
-		arguments.get_bandwidth2(),
 		arguments.get_step(),
 		arguments.get_avg_size(),
-		arguments.get_spread(),
-		arguments.get_threshold(),
-		arguments.get_time());
+		arguments.get_gain_a(),
+		arguments.get_gain_m(),
+		arguments.get_gain_if(),
+		arguments.get_gain_total(),
+		arguments.get_use_AGC()
+	);	
 	top_block.run();
 	return 0; //actually, we never get here because of the rude way in which we end the scan
 }
