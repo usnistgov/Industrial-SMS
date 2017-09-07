@@ -78,7 +78,7 @@ Spectrum analyzer confirming microwave oven interfering signal displayed by the 
 
 ![speca](https://user-images.githubusercontent.com/19610600/30132491-7c90b386-931e-11e7-85c2-2c8151ac362f.jpg)
 
-
+Display test...
 
 
 
