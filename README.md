@@ -101,7 +101,10 @@ The SMS runs continously, measuring the power at samples in a small frequency ra
 ## Calibration
 (How to calibrate it, with indications to what command-line options or source code variables to set)
 ## Thresholding
-(How thresholding is done to miniimze false alarms, and how it is configured)
+At each given frequency, the detector looks over its central window and calculates average power inside this window. The detector looks at signal levels in the left and right windows and average power in these windows are calculated as well which are treated as background level. Afterwards, the detector compares signal level in the center window with the signal levels in the left and right windows to figure out how much average power goes above background level. After comparison, If the signal level in the center lower than the signal levels in the left or right windows, this is treated as there is no signal detected. On the other hand, if the signal level in the center higher than the signal levels in both left and right windows, this is treated as there is signal detected. The higher the difference between the center window and background level, the more likely it is the center point as long as we have more equal sides.
+After that, we seek for such point in our frequency range where this value is maximum and make an assumption that this point where there is the peak of detected signal is the signal center. Then, we start at this peak point and move left and right over frequencies looking at signal power. Once we see signal drops less than halfway between peak and noise level meaning that signal power goes below 0.7 of average value over the range of detected signal, we conclude that these points are BW edges. Then, we integrate signal power between these points.
+
+
 ## Adaptive Gain Control (AGC)
 First, average spectral power in current FFT window (excluding edge points) and then average of all points above average (in case if most points are noise) are calculated. If this average is too low, we increase gain for one step (8 dB) and if it too high, we decrease gain for one step (8 dB). Then, we lock gain change for the next 1000 FFT samples. The reason for us to lock it is to prevent oscillations. We turn on RF gain first (and correspondingly turn it off last) and adjust IF gain only when RF gain is turned on.
 
