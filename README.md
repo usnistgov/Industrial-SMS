@@ -90,14 +90,13 @@ The ISMS monitor displaying cellular signal during the NIST shops experiment:
 
 
 # Principles of Operation
-The SMS runs continously, measuring the power at samples in a small frequency range over a short period of time, and computing a fast Fourier transform (FFT) to identify frequency components present. 
-(Detail the operation of the SMS, including what is configurable)
-* start frequency
-* stop frequency
-* step size
-* scan bandwidth)
-* dwell time
-* FFT size
+The SMS runs continuously, measuring the power at samples in a small frequency range over a short period of time, and computing a fast Fourier transform (FFT) to identify frequency components present. Some of the important command line configuration options are provided for the user below: 
+* start frequency: The user can enter any starting frequency in MHz up to 6000 MHz
+* stop frequency: The user can enter any ending frequency in MHz up to 6000 MHz
+* step size: The user can enter frequency step size in MHz which was configured as 0.1 MHz for our experiments 
+* scan bandwidth: The user can enter 8 MS/s, 10 MS/s, 12.5 MS/s, 16 MS/s and 20 MS/s since using a sampling rate of less than 8 MHz is not recommended because of the fact that the MAX5864 (ADC/DAC chip) is not specified to operate at less than 8 MHz. Maximum option of 20 MS/s was utilized for our experiments
+* dwell time: The user can configure this via -a option which is the average over N samples at each frequency step. The value 200 was configured as -a option which resulted 20 milliseconds for every 0.1 MHz frequency step in our experiments
+* FFT size: The user can enter FFT points which was configured as 2048 for our experiments
 ## Calibration
 
 The calibration experiment of the HackRF One device was conducted by fixing the center frequency and then injecting different levels of power (-80 dBm to -20 dBm by 10 dB increments) using vector signal generator. Because of the fact that HackRF One is not a linear SDR peripheral, there was a difference between injected and measured levels so there needed to be a coefficient introduced to compensate for difference between these two levels which can be located under gr-scan folder in scanner_sink.hpp at line 179.
