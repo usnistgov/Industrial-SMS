@@ -100,7 +100,7 @@ The ISMS monitor displaying cellular signal during the NIST shops experiment:
 
 
 # Principles of Operation
-The SMS runs continuously, measuring the power at samples in a small frequency range over a short period of time, and computing a fast Fourier transform (FFT) to identify frequency components present. Some of the important command line configuration options are provided for the user below: 
+The ISMS runs continuously, measuring the power at samples in a small frequency range over a short period of time, and computing a fast Fourier transform (FFT) to identify frequency components present. Some of the important command line configuration options are provided for the user below: 
 
 * *start frequency*: The user can enter any starting frequency in MHz up to 6000 MHz                                                 
 * *stop frequency*: The user can enter any ending frequency in MHz up to 6000 MHz                                                    
