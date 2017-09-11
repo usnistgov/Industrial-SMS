@@ -102,8 +102,8 @@ The ISMS monitor displaying cellular signal during the NIST shops experiment:
 # Principles of Operation
 The ISMS runs continuously, measuring the power at samples in a small frequency range over a short period of time, and computing a fast Fourier transform (FFT) to identify frequency components present. Some of the important command line configuration options are provided for the user below: 
 
-* *start frequency*: The user can enter any starting frequency in MHz up to 6000 MHz                                                 
-* *stop frequency*: The user can enter any ending frequency in MHz up to 6000 MHz                                                    
+* *start frequency*: The user can enter any starting frequency in MHz between 100 MHz and 6000 MHz                              
+* *stop frequency*: The user can enter any ending frequency in MHz between 100 MHz and 6000 MHz                              
 * *step size*: The user can enter frequency step size in MHz which was configured as 0.1 MHz for our experiments                     
 * *scan bandwidth*: The user can enter 8 MS/s, 10 MS/s, 12.5 MS/s, 16 MS/s and 20 MS/s since using a sampling rate of less than 8 MHz is not recommended because of the fact that the MAX5864 (ADC/DAC chip) is not specified to operate at less than 8 MHz. Maximum option of 20 MS/s was utilized for our experiments                                                                                            
 * *dwell time*: The user can configure this via -a option which is the average over N samples at each frequency step. The value 200 was configured as -a option which resulted 20 milliseconds for every 0.1 MHz frequency step in our experiments                        
