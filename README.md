@@ -122,5 +122,10 @@ After that, we seek for such point in our frequency range where this value is ma
 First, average spectral power in current FFT window (excluding edge points) and then average of all points above average (in case if most points are noise) are calculated. If this average is too low, we increase gain for one step (8 dB) and if it too high, we decrease gain for one step (8 dB). Then, we lock gain change for the next 1000 FFT samples. The reason for us to lock it is to prevent oscillations. We turn on RF gain first (and correspondingly turn it off last) and adjust IF gain only when RF gain is turned on.
 
 
-# Limitations and Future Work
-(Here is where you would show how the SMS would figure as a node in a larger system; what other hardware could be used)
+# Future Work
+It is vital to maintain situational awareness of the spectrum environment to ensure full-spectrum superiority. The ISMS operating on the basis of distributed RF spectrum sensor units would provide imperative data for frequency situational awareness by working together in a coordinated way to detect and confirm anomalies in the spectrum, measure the complete range of frequencies, and capture weak signals.
+
+Since spectrum usage can differ by both time and location within an area, more measurements would be needed from different locations by deploying a network of monitoring sensor units which can autonomously execute their tasks to provide statistically valid data. These remotely deployed sensor units would be connected over transmission control protocol/internet protocol (TCP/IP) network, including cable, fiber, and cellular. TCP would be used for administrative tasks, such as configuration and monitoring of individual sensor units, that require reliability and compatibility.
+
+
+
