@@ -61,6 +61,7 @@ When scanner is launched, the user can run the monitor in another terminal with 
 ```
 ./sdr_processor 
 ```
+Detected signals are written in a file with name "report_date.txt" which is a new file created each time the user runs the monitor. 
 The monitor has no command line parameters. In graphical interface, there are two charts: full range chart with frequencies from 100 to 6000 MHz and zoom window with adjustable range. Zoom window is centered with mouse: when cursor is in bottom third of the screen, zoom window central frequency corresponds to full range frequency which is under mouse cursor.
 
 Zoom window frequency range is adjusted with mouse scroll wheel. When left shift key is pressed, mouse wheel changes power scale of both charts. When left alt key is pressed, mouse wheel changes zero level of both charts.
