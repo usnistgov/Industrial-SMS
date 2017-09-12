@@ -27,7 +27,7 @@ The hardware specs for the low-cost platform HackRF One can be found on [HackRF 
 
 The installation instructions for HackRF One can be found on [Installing HackRF Tools](https://github.com/mossmann/hackrf/wiki/Operating-System-Tips).
 
-After installation, it is a good practice to run ```hackrf_info``` command to read device information from HackRF One such as serial number and firmware version. When the user runs this command to communicate with the HackRF One, it may be possible to receive the following error message:
+After installation, it is a good practice to run ```hackrf_info``` command to read device information from HackRF One such as serial number and firmware version. When the user runs this command to communicate with HackRF One, it may be possible to receive the following error message:
 
 ```
 hackrf_open() failed: HACKRF_ERROR_NOT_FOUND (-5)
@@ -36,7 +36,7 @@ or
 ```
 hackrf_open() failed: HACKRF_ERROR_LIBUSB (-1000)
 ```
-This result may be related to permission issue which may require the udev rule to be installed and the HackRF One to be reconnected. Information about this issue and installing the udev rule can be found on [HackRF One Access Issue](https://github.com/mossmann/hackrf/wiki/FAQ#permission-problem).
+This result may be related to permission issue which may require the udev rule to be installed and HackRF One to be reconnected. Information about this issue and installing the udev rule can be found on [HackRF One Access Issue](https://github.com/mossmann/hackrf/wiki/FAQ#permission-problem).
 
 [Where to Buy](http://greatscottgadgets.com/wheretobuy/) will provide the user with information on how to get HackRF One and [This Video Tutorial](http://greatscottgadgets.com/sdr/5/) is especially essential to understand the firmware configuration of this specific hardware. 
 
@@ -123,7 +123,7 @@ The ISMS runs continuously, measuring the power at samples in a small frequency 
 
 ## Calibration
 
-The calibration experiment of the HackRF One device was conducted by fixing the center frequency and then injecting different levels of power (-80 dBm to -20 dBm by 10 dB increments) using vector signal generator. Because of the fact that HackRF One is not a linear SDR peripheral, there was a difference between injected and measured levels so there needed to be a coefficient introduced to compensate for difference between these two levels which can be located under gr-scan folder in scanner_sink.hpp at line 179.
+The calibration experiment of HackRF One device was conducted by fixing the center frequency and then injecting different levels of power (-80 dBm to -20 dBm by 10 dB increments) using vector signal generator. Because of the fact that HackRF One is not a linear SDR peripheral, there was a difference between injected and measured levels so there needed to be a coefficient introduced to compensate for difference between these two levels which can be located under gr-scan folder in scanner_sink.hpp at line 179.
 
 ## Thresholding
 At each given frequency, the detector looks over its central window and calculates average power inside this window. The detector looks at signal levels in the left and right windows and average power in these windows are calculated as well which are treated as background level. Afterwards, the detector compares signal level in the center window with the signal levels in the left and right windows to figure out how much average power goes above background level. After comparison, If the signal level in the center lower than the signal levels in the left or right windows, this is treated as there is no signal detected. On the other hand, if the signal level in the center higher than the signal levels in both left and right windows, this is treated as there is signal detected. The higher the difference between the center window and background level, the more likely it is the center point as long as we have more equal sides.
