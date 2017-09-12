@@ -82,11 +82,11 @@ Monitor and detector use the same units (dBm), but monitor shows peak amplitude 
 
 The ISMS monitor while microwave oven turned off:
 
-![microwave_off](https://user-images.githubusercontent.com/19610600/30183762-961c0492-93e9-11e7-8486-4a327dd9ba43.jpg)
+
 
 The ISMS monitor displaying microwave oven interfering signal at 2465 MHz along with other signals at 2.4 GHz band:
 
-![terminal output_1](https://user-images.githubusercontent.com/19610600/30132362-1cccd1d2-931e-11e7-9a19-d70d5f8b4d49.jpg)
+
 
 Spectrum analyzer confirming microwave oven interfering signal displayed by the monitor:
 
