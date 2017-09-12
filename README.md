@@ -86,7 +86,7 @@ The ISMS monitor while microwave oven turned off:
 
 The ISMS monitor displaying microwave oven interfering signal at 2465 MHz along with other signals at 2.4 GHz band:
 
-
+![terminal output_1](https://user-images.githubusercontent.com/19610600/30331253-4cae4800-97a5-11e7-9fc0-617873057607.jpg)
 
 Spectrum analyzer confirming microwave oven interfering signal displayed by the monitor:
 
