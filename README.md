@@ -27,6 +27,17 @@ The hardware specs for the low-cost platform HackRF One can be found on [HackRF 
 
 The installation instructions for HackRF One can be found on [Installing HackRF Tools](https://github.com/mossmann/hackrf/wiki/Operating-System-Tips).
 
+After installation, it is a good practice to run ```hackrf_info``` command to read device information from HackRF One such as serial number and firmware version. When the user runs this command to communicate with the HackRF One, it may be possible to receive the following error message:
+
+```
+hackrf_open() failed: HACKRF_ERROR_NOT_FOUND (-5)
+```
+or
+```
+hackrf_open() failed: HACKRF_ERROR_LIBUSB (-1000)
+```
+This result may be related to permission issue which may require the udev rule to be installed and the HackRF One to be reconnected. Information about this issue and installing the udev rule can be found on [HackRF One Access Issue](https://github.com/mossmann/hackrf/wiki/FAQ#permission-problem).
+
 [Where to Buy](http://greatscottgadgets.com/wheretobuy/) will provide the user with information on how to get HackRF One and [This Video Tutorial](http://greatscottgadgets.com/sdr/5/) is especially essential to understand the firmware configuration of this specific hardware. 
 
 ## Running the ISMS
