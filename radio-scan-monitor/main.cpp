@@ -207,7 +207,7 @@ void rezoom()
 
 float mouse_rel_x = 0;
 
-int fill_mode = 0; //0 - all data, 1 - only measured range
+int fill_mode = 1; //0 - all data, 1 - only measured range
 
 void fill_zoom_values()
 {
