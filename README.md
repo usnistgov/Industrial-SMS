@@ -133,6 +133,29 @@ After that, we seek for such point in our frequency range where this value is ma
 ## Adaptive Gain Control (AGC)
 First, average spectral power in current FFT window (excluding edge points) and then average of all points above average (in case if most points are noise) are calculated. If this average is too low, we increase gain for one step (8 dB) and if it too high, we decrease gain for one step (8 dB). Then, we lock gain change for the next 1000 FFT samples. The reason for us to lock it is to prevent oscillations. We turn on RF gain first (and correspondingly turn it off last) and adjust IF gain only when RF gain is turned on.
 
+# Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+# Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+# Authors
+
+* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+# Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
 
 # Future Work
 It is vital to maintain situational awareness of the spectrum environment to ensure full-spectrum superiority. The ISMS operating on the basis of distributed RF spectrum sensor units would provide imperative data for frequency situational awareness by working together in a coordinated way to detect and confirm anomalies in the spectrum, measure the complete range of frequencies, and capture weak signals.
