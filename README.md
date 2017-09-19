@@ -140,7 +140,7 @@ First, average spectral power in current FFT window (excluding edge points) and 
 
 # License
 
-Portions of this software were developed by employess of the U.s. Federal Government and are in the publ9ic domain. Open-sourc software included from other sources is indicated by the licsensing for that software as indicated in the source code.
+Portions of this software were developed by employees of the U.S. Federal Government and are in the public domain. Open-source software included from other sources is indicated by the licensing for that software as indicated in the source code.
 
 # Acknowledgments
 
