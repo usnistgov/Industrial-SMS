@@ -133,6 +133,18 @@ After that, we seek for such point in our frequency range where this value is ma
 ## Adaptive Gain Control (AGC)
 First, average spectral power in current FFT window (excluding edge points) and then average of all points above average (in case if most points are noise) are calculated. If this average is too low, we increase gain for one step (8 dB) and if it too high, we decrease gain for one step (8 dB). Then, we lock gain change for the next 1000 FFT samples. The reason for us to lock it is to prevent oscillations. We turn on RF gain first (and correspondingly turn it off last) and adjust IF gain only when RF gain is turned on.
 
+# Authors
+
+* Murat Aksu
+* Dmitry Dziuba
+
+# License
+
+Portions of this software were developed by employees of the U.S. Federal Government and are in the public domain. Open-source software included from other sources is indicated by the licensing for that software as indicated in the source code.
+
+# Acknowledgments
+
+* Dmitry Dziuba, for radio-scan-monitor and integration with gr_scan
 
 # Future Work
 It is vital to maintain situational awareness of the spectrum environment to ensure full-spectrum superiority. The ISMS operating on the basis of distributed RF spectrum sensor units would provide imperative data for frequency situational awareness by working together in a coordinated way to detect and confirm anomalies in the spectrum, measure the complete range of frequencies, and capture weak signals.
