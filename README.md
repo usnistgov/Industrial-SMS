@@ -135,8 +135,9 @@ First, average spectral power in current FFT window (excluding edge points) and 
 
 # Authors
 
-* Murat Aksu (murat.aksu@nist.gov) - software, coordination, testing
-* Dmitry Dziuba - software
+* Murat Aksu (murat.aksu@nist.gov) - software integration, testing
+* Dmitry Dziuba - radio-scan-monitor and integration with gr_scan
+
 
 # License
 
@@ -144,9 +145,8 @@ Portions of this software were developed by employees of the U.S. Federal Govern
 
 # Acknowledgments
 
-* Dmitry Dziuba, for radio-scan-monitor and integration with gr_scan
 * Richard Candell - project leader, system requirements, RF/DSP 
-* Fred Proctor 
+* Fred Proctor - group leader, technical direction
 
 # Contact Information
 For more information, please contact the project leader, Rick Candell, rick.candell@nist.gov.  For software questions, please contact one of the software developers or the project leader.
