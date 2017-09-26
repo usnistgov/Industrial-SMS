@@ -135,8 +135,8 @@ First, average spectral power in current FFT window (excluding edge points) and 
 
 # Authors
 
-* Murat Aksu
-* Dmitry Dziuba
+* Murat Aksu (murat.aksu@nist.gov) - coordination and testing
+* Dmitry Dziuba - software development
 
 # License
 
@@ -145,6 +145,8 @@ Portions of this software were developed by employees of the U.S. Federal Govern
 # Acknowledgments
 
 * Dmitry Dziuba, for radio-scan-monitor and integration with gr_scan
+* Richard Candell (rick.candell@nist.gov) - system requirements, RF/DSP 
+* Fred Proctor 
 
 # Future Work
 It is vital to maintain situational awareness of the spectrum environment to ensure full-spectrum superiority. The ISMS operating on the basis of distributed RF spectrum sensor units would provide imperative data for frequency situational awareness by working together in a coordinated way to detect and confirm anomalies in the spectrum, measure the complete range of frequencies, and capture weak signals.
